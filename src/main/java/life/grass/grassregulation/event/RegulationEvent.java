@@ -3,10 +3,12 @@ package life.grass.grassregulation.event;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class CraftRegulationEvent implements Listener {
+public class RegulationEvent implements Listener {
 
     @EventHandler
     public void onCraftItem(PrepareItemCraftEvent event) {
@@ -16,6 +18,25 @@ public class CraftRegulationEvent implements Listener {
         if (isProhibitedItem(item)) {
 
             event.getInventory().setResult(new ItemStack(Material.AIR));
+
+        }
+
+    }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent event) {
+
+        event.setCancelled(true);
+
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        event.getPlayer().sendMessage("-----^-^-^-^--^--^-^--^-^-");
+
+        if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) {
+
+            event.setCancelled(true);
 
         }
 

@@ -1,13 +1,13 @@
 package life.grass.grassregulation;
 
-import life.grass.grassregulation.event.CraftRegulationEvent;
+import life.grass.grassregulation.event.RegulationEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class GrassRegulation extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(new CraftRegulationEvent(), this);
+        getServer().getPluginManager().registerEvents(new RegulationEvent(), this);
     }
 
     @Override
