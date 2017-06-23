@@ -1,0 +1,3 @@
+name: GrassRegulation
+version: ${project.version}
+main: life.grass.grassregulation.GrassRegulation
