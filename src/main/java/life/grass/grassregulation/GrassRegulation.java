@@ -58,6 +58,7 @@ public final class GrassRegulation extends JavaPlugin {
                 item.equals(Material.GOLD_INGOT) ||
                 item.equals(Material.IRON_INGOT) ||
                 item.equals(Material.IRON_NUGGET) ||
+                item.equals(Material.TNT) ||
                 item.equals(Material.CAKE) ||
                 item.equals(Material.BREAD) ||
                 item.equals(Material.PUMPKIN_PIE) ||
