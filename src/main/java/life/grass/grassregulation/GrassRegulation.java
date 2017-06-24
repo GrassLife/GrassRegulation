@@ -5,7 +5,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class GrassRegulation extends JavaPlugin {
 
@@ -31,13 +34,18 @@ public final class GrassRegulation extends JavaPlugin {
 
     private static void removeRecipes() {
 
+        List<Recipe> backup = new ArrayList<>();
+
         Iterator<Recipe> iterator = getInstance().getServer().recipeIterator();
         while (iterator.hasNext()) {
             Recipe r = iterator.next();
-            if (isCraftProhibitedItem(r.getResult().getType())) {
-                iterator.remove();
+            if (!isCraftProhibitedItem(r.getResult().getType())) {
+                backup.add(r);
             }
         }
+        getInstance().getServer().clearRecipes();
+        for (Recipe r : backup)
+            getInstance().getServer().addRecipe(r);
 
     }
 
