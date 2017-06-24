@@ -2,12 +2,13 @@ package life.grass.grassregulation;
 
 import life.grass.grassregulation.event.RegulationEvent;
 import org.bukkit.Material;
+import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public final class GrassRegulation extends JavaPlugin {
@@ -39,7 +40,9 @@ public final class GrassRegulation extends JavaPlugin {
         Iterator<Recipe> iterator = getInstance().getServer().recipeIterator();
         while (iterator.hasNext()) {
             Recipe r = iterator.next();
-            if (!isCraftProhibitedItem(r.getResult().getType())) {
+            if (!isCraftProhibitedItem(r.getResult().getType()) && r instanceof ShapedRecipe) {
+                backup.add(r);
+            } else if (!isSmeltProhibitedItem(r.getResult().getType()) && r instanceof FurnaceRecipe) {
                 backup.add(r);
             }
         }
@@ -71,15 +74,21 @@ public final class GrassRegulation extends JavaPlugin {
                 item.equals(Material.BREAD) ||
                 item.equals(Material.PUMPKIN_PIE) ||
                 item.equals(Material.MUSHROOM_SOUP) ||
-                item.equals(Material.BEETROOT_SOUP) ||
-                item.equals(Material.COOKED_BEEF)||
+                item.equals(Material.BEETROOT_SOUP)||
+                item.equals(Material.RABBIT_STEW);
+
+
+    }
+
+    private static boolean isSmeltProhibitedItem(Material item) {
+
+        return item.equals(Material.COOKED_BEEF)||
                 item.equals(Material.COOKED_CHICKEN) ||
                 item.equals(Material.COOKED_FISH) ||
                 item.equals(Material.GRILLED_PORK) ||
                 item.equals(Material.COOKED_MUTTON) ||
                 item.equals(Material.COOKED_RABBIT) ||
-                item.equals(Material.BAKED_POTATO) ||
-                item.equals(Material.RABBIT_STEW);
+                item.equals(Material.BAKED_POTATO);
 
     }
 }
