@@ -75,7 +75,10 @@ public final class GrassRegulation extends JavaPlugin {
                 item.equals(Material.PUMPKIN_PIE) ||
                 item.equals(Material.MUSHROOM_SOUP) ||
                 item.equals(Material.BEETROOT_SOUP)||
-                item.equals(Material.RABBIT_STEW);
+                item.equals(Material.RABBIT_STEW) ||
+                item.equals(Material.WHEAT) ||
+                item.equals(Material.HAY_BLOCK) ||
+                item.equals(Material.COOKIE);
 
 
     }
