@@ -4,7 +4,6 @@ import life.grass.grassregulation.event.RegulationEvent;
 import org.bukkit.Material;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.Recipe;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -40,9 +39,7 @@ public final class GrassRegulation extends JavaPlugin {
         Iterator<Recipe> iterator = getInstance().getServer().recipeIterator();
         while (iterator.hasNext()) {
             Recipe r = iterator.next();
-            if (!isCraftProhibitedItem(r.getResult().getType()) && r instanceof ShapedRecipe) {
-                backup.add(r);
-            } else if (!isSmeltProhibitedItem(r.getResult().getType()) && r instanceof FurnaceRecipe) {
+            if (isAllowedRecipe(r)) {
                 backup.add(r);
             }
         }
@@ -50,6 +47,14 @@ public final class GrassRegulation extends JavaPlugin {
         for (Recipe r : backup)
             getInstance().getServer().addRecipe(r);
 
+    }
+
+    private static boolean isAllowedRecipe(Recipe recipe) {
+        Material item = recipe.getResult().getType();
+        if (recipe instanceof FurnaceRecipe) {
+            return !isSmeltProhibitedItem(item);
+        }
+        return !isCraftProhibitedItem(item);
     }
 
     private static boolean isCraftProhibitedItem(Material item) {
