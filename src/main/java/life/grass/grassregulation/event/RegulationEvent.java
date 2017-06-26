@@ -1,8 +1,10 @@
 package life.grass.grassregulation.event;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockFormEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -23,6 +25,13 @@ public class RegulationEvent implements Listener {
 
             event.setCancelled(true);
 
+        }
+    }
+
+    @EventHandler
+    public void onLavaChange(BlockFormEvent event) {
+        if (event.getNewState().getType().equals(Material.STONE)) {
+            event.setCancelled(true);
         }
     }
 
