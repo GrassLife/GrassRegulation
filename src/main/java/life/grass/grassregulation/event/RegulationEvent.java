@@ -1,8 +1,10 @@
 package life.grass.grassregulation.event;
 
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class RegulationEvent implements Listener {
@@ -21,6 +23,31 @@ public class RegulationEvent implements Listener {
 
             event.setCancelled(true);
 
+        }
+    }
+
+    @EventHandler
+    public void onClickVillager(PlayerInteractEntityEvent event) {
+
+        if (event.getRightClicked() instanceof Villager) {
+
+            event.setCancelled(true);
+
+            switch ((int) Math.ceil(Math.random() * 4)) {
+
+                case 1:
+                    event.getPlayer().sendTitle("ﾊｧﾝ...", "", 10, 70, 20);
+                    break;
+                case 2:
+                    event.getPlayer().sendTitle("ﾊｧﾝ?", "", 10, 70, 20);
+                    break;
+                case 3:
+                    event.getPlayer().sendTitle("ﾊﾝｯ", "", 10, 70, 20);
+                    break;
+                case 4:
+                    event.getPlayer().sendTitle("ﾊｧﾝ!!!", "", 10, 70, 20);
+                    break;
+            }
         }
     }
 }
