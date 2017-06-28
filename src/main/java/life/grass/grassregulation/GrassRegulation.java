@@ -6,10 +6,6 @@ import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 public final class GrassRegulation extends JavaPlugin {
 
     private static GrassRegulation instance;
@@ -23,30 +19,13 @@ public final class GrassRegulation extends JavaPlugin {
 
         instance = this;
         getServer().getPluginManager().registerEvents(new RegulationEvent(), this);
-        removeRecipes();
+        RecipeFilter.filter(getServer(), GrassRegulation::isAllowedRecipe);
 
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    private static void removeRecipes() {
-
-        List<Recipe> backup = new ArrayList<>();
-
-        Iterator<Recipe> iterator = getInstance().getServer().recipeIterator();
-        while (iterator.hasNext()) {
-            Recipe r = iterator.next();
-            if (isAllowedRecipe(r)) {
-                backup.add(r);
-            }
-        }
-        getInstance().getServer().clearRecipes();
-        for (Recipe r : backup)
-            getInstance().getServer().addRecipe(r);
-
     }
 
     private static boolean isAllowedRecipe(Recipe recipe) {
