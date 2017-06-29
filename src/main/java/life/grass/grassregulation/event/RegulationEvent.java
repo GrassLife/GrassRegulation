@@ -32,14 +32,13 @@ public class RegulationEvent implements Listener {
     @EventHandler
     public void onPlayerRideBoat(PlayerInteractEntityEvent event) {
 
-        if (event.getRightClicked().getType().equals(EntityType.BOAT)) {
+        if (event.getRightClicked().getType().equals(EntityType.BOAT) || event.getRightClicked().getType().equals(EntityType.MINECART)) {
 
             Entity vehicle = event.getPlayer().getVehicle();
-
-            if (vehicle != null && vehicle.getType().equals(EntityType.BOAT)) {
+            if (vehicle != null && (vehicle.getType().equals(EntityType.BOAT) || vehicle.getType().equals(EntityType.MINECART))) {
 
                 event.setCancelled(true);
-                event.getPlayer().sendTitle("", "ボートからボートに乗ることはできません", 10, 70, 20);
+                event.getPlayer().sendTitle("", "乗り物から乗り物に乗ることはできません", 10, 70, 20);
 
             } else if (event.getRightClicked().getLocation().getY() > event.getPlayer().getLocation().getY() + 1.0 ) {
 
