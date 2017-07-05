@@ -1,10 +1,14 @@
 package life.grass.grassregulation.event;
 
 import org.bukkit.Material;
-import org.bukkit.entity.*;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -40,7 +44,7 @@ public class RegulationEvent implements Listener {
                 event.setCancelled(true);
                 event.getPlayer().sendTitle("", "乗り物から乗り物に乗ることはできません", 10, 70, 20);
 
-            } else if (event.getRightClicked().getLocation().getY() > event.getPlayer().getLocation().getY() + 1.0 ) {
+            } else if (event.getRightClicked().getLocation().getY() > event.getPlayer().getLocation().getY() + 1.0) {
 
                 event.setCancelled(true);
                 event.getPlayer().sendTitle("", "そこからは乗れません", 10, 70, 20);
@@ -60,6 +64,18 @@ public class RegulationEvent implements Listener {
     public void onLavaChange(BlockFormEvent event) {
         if (event.getNewState().getType().equals(Material.STONE)) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        Block block = event.getBlockPlaced();
+        if (block == null) return;
+
+        switch (block.getType()) {
+            case BREWING_STAND:
+            case BREWING_STAND_ITEM:
+                event.setCancelled(true);
         }
     }
 
