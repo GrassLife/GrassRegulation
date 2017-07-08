@@ -1,14 +1,18 @@
 package life.grass.grassregulation.event;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+
+import java.util.List;
 
 public class RegulationEvent implements Listener {
 
@@ -27,6 +31,19 @@ public class RegulationEvent implements Listener {
             event.setCancelled(true);
 
         }
+    }
+
+    @EventHandler
+    public void onPistonPushShulkerBox(BlockPistonExtendEvent event) {
+        List<Block> blocks = event.getBlocks();
+        boolean hasShulker = false;
+        for (Block block : blocks) {
+            if (block.getType().toString().contains("SHULKER_BOX")) {
+                hasShulker = true;
+                break;
+            }
+        }
+        if (hasShulker) event.setCancelled(true);
     }
 
     @EventHandler
