@@ -38,8 +38,7 @@ public final class GrassRegulation extends JavaPlugin {
 
     private static boolean isCraftProhibitedItem(Material item) {
 
-        return item.equals(Material.ENCHANTMENT_TABLE) ||
-                item.equals(Material.ANVIL) ||
+        return item.equals(Material.ANVIL) ||
                 item.equals(Material.BREWING_STAND_ITEM) ||
                 item.equals(Material.HOPPER) ||
                 item.equals(Material.COAL_BLOCK) ||
