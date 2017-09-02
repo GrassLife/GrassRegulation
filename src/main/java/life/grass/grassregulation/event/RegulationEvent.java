@@ -70,13 +70,6 @@ public class RegulationEvent implements Listener {
     }
 
     @EventHandler
-    public void onDropExp(EntitySpawnEvent event) {
-        if (event.getEntityType().equals(EntityType.EXPERIENCE_ORB)) {
-            event.setCancelled(true);
-        }
-    }
-
-    @EventHandler
     public void onLavaChange(BlockFormEvent event) {
         if (event.getNewState().getType().equals(Material.STONE)) {
             event.setCancelled(true);
